@@ -2,7 +2,7 @@ import { Button } from "../components/Button/Button";
 import { useClosePreloadWindow } from "@hooks/closePreloadWindow";
 import { AppVersion } from "@components/AppVersion";
 
-const Home = () => {
+const Main = () => {
   useClosePreloadWindow("window:main");
 
   const handleKey = () => {
@@ -19,4 +19,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Main;
