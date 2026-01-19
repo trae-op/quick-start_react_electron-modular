@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Button } from "@components/Button";
 import { Item } from "@components/Item";
 import { useClosePreloadWindow } from "@hooks/closePreloadWindow";
-import { AppVersion } from "@components/AppVersion";
 
 const Main = () => {
   useClosePreloadWindow("window:main");
@@ -30,7 +29,6 @@ const Main = () => {
 
   return (
     <div className="center">
-      <AppVersion />
       <div className="todo-list">
         {items.length === 0 ? (
           <p className="todo-empty">No items yet. Add your first one.</p>

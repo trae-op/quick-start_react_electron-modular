@@ -53,19 +53,14 @@ const Add = () => {
   return (
     <div className="center">
       <form
-        className="add-form"
         action={formAction}
         noValidate
         autoComplete="off"
+        className="add-form"
       >
         <h2>Add a new item</h2>
-        <TextField
-          label="Title"
-          name="title"
-          type="text"
-          required
-          helperText="Enter the title"
-        />
+        <TextField label="Title" name="title" type="text" required />
+
         <SubmitButton />
       </form>
     </div>

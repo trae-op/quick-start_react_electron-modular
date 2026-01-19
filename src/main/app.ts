@@ -6,7 +6,6 @@ import { isDev } from "./@shared/utils.js";
 import { AppModule } from "./app/module.js";
 import { AddModule } from "./add/module.js";
 import { AppPreloadModule } from "./app-preload/module.js";
-import { AppVersionModule } from "./app-version/module.js";
 import { DeleteModule } from "./delete/module.js";
 import { ItemsModule } from "./items/module.js";
 import { folders } from "./config.js";
@@ -31,7 +30,6 @@ app.on("ready", async () => {
   await bootstrapModules([
     AppModule,
     AppPreloadModule,
-    AppVersionModule,
     AddModule,
     ItemsModule,
     DeleteModule,
