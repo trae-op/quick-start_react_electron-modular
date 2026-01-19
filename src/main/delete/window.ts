@@ -7,8 +7,8 @@ import { backgroundColor } from "../config.js";
   hash: "window:delete",
   isCache: true,
   options: {
-    width: 320,
-    height: 220,
+    width: 350,
+    height: 300,
     alwaysOnTop: true,
     autoHideMenuBar: true,
     minimizable: false,
