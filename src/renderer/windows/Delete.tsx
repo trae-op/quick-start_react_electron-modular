@@ -7,8 +7,6 @@ const Delete = () => {
     id?: string;
   }>();
 
-  console.log("Delete item id:", id);
-
   const handleCancel = () => {
     window.electron.send.closeDeleteWindow();
   };
