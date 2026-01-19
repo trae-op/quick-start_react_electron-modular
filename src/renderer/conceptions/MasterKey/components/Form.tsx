@@ -1,18 +1,48 @@
+import { useActionState } from "react";
 import Stack from "@mui/material/Stack";
-import { useIpc } from "../hooks/useIpc";
 import { SubmitButton } from "./SubmitButton";
 import { useControl } from "../hooks/useControl";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { useMasterKeyForm } from "../hooks/useMasterKeyForm";
 import { MasterKeyField } from "./fields/MasterKeyField";
-import { useMasterKeyIsMasterKeySelector } from "../context";
+
+type TFormState = {
+  errors?: Record<string, string[]>;
+  message?: string;
+  success?: boolean;
+};
+
+const initialState: TFormState = {
+  errors: {},
+  message: "",
+  success: false,
+};
 
 export const Form = () => {
-  useIpc();
   const { handleDeleteMasterKey } = useControl();
-  const { formAction } = useMasterKeyForm();
-  const isMasterKey = useMasterKeyIsMasterKeySelector();
+  const [_, formAction] = useActionState(
+    async (_: TFormState, formData: FormData): Promise<TFormState> => {
+      const key = (formData.get("key") || "") as string;
+
+      try {
+        await window.electron.invoke.postMasterKey({
+          key,
+        });
+
+        return {
+          ...initialState,
+          success: true,
+        };
+      } catch (error) {
+        return {
+          ...initialState,
+          message: "Failed to update master key",
+          success: false,
+        };
+      }
+    },
+    initialState,
+  );
 
   return (
     <form action={formAction} noValidate autoComplete="off">
@@ -22,16 +52,14 @@ export const Form = () => {
         </Typography>
         <MasterKeyField />
         <SubmitButton />
-        {isMasterKey && (
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            onClick={handleDeleteMasterKey}
-          >
-            Delete master key
-          </Button>
-        )}
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          onClick={handleDeleteMasterKey}
+        >
+          Delete master key
+        </Button>
       </Stack>
     </form>
   );

@@ -10,7 +10,7 @@ export const useControl = (): THookControl => {
     () => ({
       handleDeleteMasterKey,
     }),
-    [handleDeleteMasterKey]
+    [],
   );
 
   return value;
