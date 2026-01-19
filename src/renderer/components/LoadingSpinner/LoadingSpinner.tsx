@@ -1,27 +1,40 @@
 import { memo } from "react";
-import Stack from "@mui/material/Stack";
-import CircularProgress from "@mui/material/CircularProgress";
-import { TPropsLoadingSpinner } from "./types";
+import { TLoadingSpinnerProps } from "./types";
 
-export const LoadingSpinner = memo(
-  ({ containerProps, circularProgressProps }: TPropsLoadingSpinner) => {
-    return (
-      <Stack
-        sx={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          zIndex: 1000,
-          backgroundColor: "rgba(24, 24, 24)",
-        }}
-        alignItems="center"
-        justifyContent="center"
-        {...containerProps}
-      >
-        <CircularProgress size={70} {...circularProgressProps} />
-      </Stack>
-    );
-  },
-);
+export const LoadingSpinner = memo((props: TLoadingSpinnerProps) => {
+  const { className = "", inline = false, size = "md", ...other } = props;
+
+  const containerClassName = [
+    "loading-spinner",
+    inline ? "loading-spinner--inline" : "",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  const loaderClassName = [
+    "ui-loader",
+    typeof size === "string" ? `ui-loader--${size}` : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  const loaderStyle =
+    typeof size === "number"
+      ? {
+          width: `${size}px`,
+          height: `${size}px`,
+          borderWidth: `${Math.max(1, Math.round(size / 8))}px`,
+        }
+      : undefined;
+
+  return (
+    <div className={containerClassName} {...other}>
+      <span
+        aria-hidden="true"
+        className={loaderClassName}
+        style={loaderStyle}
+      />
+    </div>
+  );
+});

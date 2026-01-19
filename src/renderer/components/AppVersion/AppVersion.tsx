@@ -1,8 +1,6 @@
-import { memo, useEffect, useState } from "react";
-import Typography from "@mui/material/Typography";
-import type { TContainerProps } from "./types";
+import { useEffect, useState } from "react";
 
-export const AppVersion = memo(({ ...other }: TContainerProps) => {
+export const AppVersion = () => {
   const [version, setVersion] = useState("");
 
   useEffect(() => {
@@ -15,9 +13,5 @@ export const AppVersion = memo(({ ...other }: TContainerProps) => {
     return null;
   }
 
-  return (
-    <>
-      <Typography {...other}>v{version}</Typography>
-    </>
-  );
-});
+  return <span>v{version}</span>;
+};

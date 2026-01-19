@@ -10,18 +10,27 @@ const LazyMasterKeyWindow = lazy(() => import("./windows/MasterKey"));
 export const App = () => {
   return (
     <HashRouter>
-      <Suspense fallback={<LoadingSpinner />}>
-        <Routes>
-          <Route element={<MainLayout />}>
-            <Route path="/window:main" element={<LazyHomeWindow />} />
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route
+            path="/window:main"
+            element={
+              <Suspense fallback={<LoadingSpinner size="xl" />}>
+                <LazyHomeWindow />
+              </Suspense>
+            }
+          />
 
-            <Route
-              path="/window:master-key"
-              element={<LazyMasterKeyWindow />}
-            />
-          </Route>
-        </Routes>
-      </Suspense>
+          <Route
+            path="/window:master-key"
+            element={
+              <Suspense fallback={<LoadingSpinner size="xl" />}>
+                <LazyMasterKeyWindow />
+              </Suspense>
+            }
+          />
+        </Route>
+      </Routes>
     </HashRouter>
   );
 };

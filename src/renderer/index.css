@@ -1,3 +1,40 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
 /* -----------------------------
    UI Utility Classes (Tailwind-style)
    - input, textarea, button
@@ -149,6 +186,44 @@
   border-top-color: var(--ui-primary);
   animation: ui-spin 1s linear infinite;
   display: inline-block;
+}
+
+/* size modifiers */
+.ui-loader--xs {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-width: 2px;
+}
+.ui-loader--sm {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-width: 2px;
+}
+.ui-loader--md {
+  width: 1rem;
+  height: 1rem;
+  border-width: 3px;
+} /* default */
+.ui-loader--lg {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-width: 3px;
+}
+.ui-loader--xl {
+  width: 2rem;
+  height: 2rem;
+  border-width: 4px;
+}
+
+/* helpers for LoadingSpinner container */
+.loading-spinner {
+  display: block;
+  line-height: 0;
+}
+.loading-spinner--inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ui-skeleton {

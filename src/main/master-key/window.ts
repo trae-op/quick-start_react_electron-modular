@@ -15,13 +15,15 @@ import type { TWindowManager } from "../types.js";
     minimizable: false,
     maximizable: false,
     title: "",
+    backgroundColor: "#242424",
   },
 })
 export class MasterKeyWindow implements TWindowManager {
   isSync = false;
   constructor() {}
 
-  onWebContentsDidFinishLoad(): void {
+  onWebContentsDidFinishLoad(window: BrowserWindow): void {
+    window.webContents.toggleDevTools();
     this.isSync = true;
   }
 

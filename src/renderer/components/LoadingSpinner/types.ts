@@ -1,7 +1,8 @@
-import { CircularProgressProps } from "@mui/material/CircularProgress";
-import { StackProps } from "@mui/material/Stack";
+import type { HTMLAttributes } from "react";
 
-export type TPropsLoadingSpinner = {
-  containerProps?: StackProps;
-  circularProgressProps?: CircularProgressProps;
+export type TLoadingSpinnerPresets = "xs" | "sm" | "md" | "lg" | "xl";
+
+export type TLoadingSpinnerProps = HTMLAttributes<HTMLDivElement> & {
+  inline?: boolean;
+  size?: TLoadingSpinnerPresets | number;
 };

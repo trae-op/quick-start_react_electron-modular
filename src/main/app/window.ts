@@ -29,6 +29,7 @@ import type {
     show: false,
     width: 350,
     height: 500,
+    backgroundColor: "#242424",
   },
 })
 export class AppWindow implements TWindowManager {

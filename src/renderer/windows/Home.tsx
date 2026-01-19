@@ -1,7 +1,7 @@
+import { Button } from "../components/Button/Button";
 import { useClosePreloadWindow } from "@hooks/closePreloadWindow";
 import { AppVersion } from "@components/AppVersion";
-import IconButton from "@mui/material/IconButton";
-import NoEncryptionGmailerrorredIcon from "@mui/icons-material/NoEncryptionGmailerrorred";
+import { LoadingSpinner } from "@components/LoadingSpinner/LoadingSpinner";
 
 const Home = () => {
   useClosePreloadWindow("window:main");
@@ -12,10 +12,11 @@ const Home = () => {
 
   return (
     <>
-      <AppVersion sx={{ width: "100%" }} variant="caption" />
-      <IconButton size="small" onClick={handleKey}>
-        <NoEncryptionGmailerrorredIcon fontSize="medium" />
-      </IconButton>
+      <AppVersion />
+      <LoadingSpinner size="xl" />
+      <Button type="submit" size="large" onClick={handleKey}>
+        Open
+      </Button>
     </>
   );
 };
