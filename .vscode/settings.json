@@ -1,0 +1,18 @@
+{
+  "github.copilot.chat.codeGeneration.instructions": [
+    {
+      "file": "./docs/typescript.md"
+    },
+    {
+      "file": "./docs/javascript.md"
+    },
+    {
+      "file": "./docs/large-data-iteration.md"
+    }
+  ],
+  "github.copilot.chat.commitMessageGeneration.instructions": [
+    {
+      "file": "./docs/git-commit-instructions.md"
+    }
+  ]
+}
