@@ -4,10 +4,11 @@ import {
   type TParamOnInit,
 } from "@devisfuture/electron-modular";
 import { ipcMainHandle, ipcMainOn } from "../@shared/utils.js";
+import { ItemsService } from "../items/service.js";
 
 @IpcHandler()
 export class AddIpc {
-  constructor() {}
+  constructor(private itemsService: ItemsService) {}
 
   onInit({ getWindow }: TParamOnInit<TWindows["add"]>): void {
     const addWindow = getWindow("window:add");
@@ -16,15 +17,21 @@ export class AddIpc {
       await addWindow.create();
     });
 
-    this.ipcPostMasterKey();
+    this.ipcAddItem();
   }
 
-  private ipcPostMasterKey(): void {
-    ipcMainHandle("post", async (payload) => {
-      console.log("Received master key title:", payload?.title);
+  private ipcAddItem(): void {
+    ipcMainHandle("items:add", async (payload) => {
+      const title = payload?.title?.trim();
+
+      if (!title) {
+        return undefined;
+      }
+
+      const item = this.itemsService.addItem(title);
       this.hideAddWindow();
 
-      return undefined;
+      return item;
     });
   }
 

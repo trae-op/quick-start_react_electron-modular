@@ -31,7 +31,7 @@ const Add = () => {
       const title = formData.get("title");
 
       try {
-        await window.electron.invoke.post({
+        await window.electron.invoke.addItem({
           title: typeof title === "string" ? title : "",
         });
 
@@ -42,7 +42,7 @@ const Add = () => {
       } catch (error) {
         return {
           ...initialState,
-          message: "Failed to update master key",
+          message: "Failed to add item",
           success: false,
         };
       }

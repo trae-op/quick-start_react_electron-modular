@@ -232,6 +232,58 @@ h3 {
   align-items: center;
 }
 
+.todo-list {
+  width: min(420px, 90vw);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.todo-empty {
+  margin: 0;
+  color: inherit;
+  opacity: 0.7;
+  text-align: center;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-muted);
+}
+
+.todo-item-title {
+  font-size: 1.05rem;
+  word-break: break-word;
+}
+
+.todo-item-actions {
+  display: inline-flex;
+  align-items: center;
+}
+
+.confirm-card {
+  width: min(320px, 90vw);
+  padding: 1.2rem 1.4rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-muted);
+  display: grid;
+  gap: 0.9rem;
+  text-align: center;
+}
+
+.confirm-text {
+  margin: 0;
+  color: inherit;
+  opacity: 0.7;
+}
+
 /* When buttons are adjacent but not inside a .button-group */
 :is(
     .button-primary-small,

@@ -11,6 +11,7 @@ export const windows: TWindows = {
   main: "window:main",
   preloadApp: "window:preload-app",
   add: "window:add",
+  delete: "window:delete",
 };
 
 export const folders = {

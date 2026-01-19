@@ -6,6 +6,7 @@ import { LoadingSpinner } from "@components/LoadingSpinner";
 
 const LazyMainWindow = lazy(() => import("./windows/Main"));
 const LazyMasterKeyWindow = lazy(() => import("./windows/Add"));
+const LazyDeleteWindow = lazy(() => import("./windows/Delete"));
 
 export const App = () => {
   return (
@@ -24,6 +25,7 @@ export const App = () => {
             <Route path="/window:main" element={<LazyMainWindow />} />
 
             <Route path="/window:add" element={<LazyMasterKeyWindow />} />
+            <Route path="/window:delete" element={<LazyDeleteWindow />} />
           </Route>
         </Routes>
       </Suspense>

@@ -9,11 +9,16 @@ electron.contextBridge.exposeInMainWorld("electron", {
   },
   send: {
     addWindow: () => ipcSend("addWindow"),
+    deleteWindow: (payload) => ipcSend("deleteWindow", payload),
+    closeDeleteWindow: () => ipcSend("closeDeleteWindow"),
     closePreloadWindow: () => ipcSend("closePreloadWindow"),
   },
   invoke: {
     getVersion: () => ipcInvoke("getVersion"),
-    post: (payload) => ipcInvoke("post", payload),
+    getItems: () => ipcInvoke("items:get"),
+    addItem: (payload) => ipcInvoke("items:add", payload),
+    deleteItem: (payload) => ipcInvoke("items:delete", payload),
+    getDeleteTarget: () => ipcInvoke("deleteTarget:get"),
   },
 } satisfies Window["electron"]);
 
