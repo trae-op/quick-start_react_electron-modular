@@ -23,10 +23,7 @@ export const App = () => {
           <Route element={<MainLayout />}>
             <Route path="/window:main" element={<LazyMainWindow />} />
 
-            <Route
-              path="/window:master-key"
-              element={<LazyMasterKeyWindow />}
-            />
+            <Route path="/window:add" element={<LazyMasterKeyWindow />} />
           </Route>
         </Routes>
       </Suspense>
