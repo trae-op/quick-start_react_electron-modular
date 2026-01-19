@@ -17,11 +17,9 @@ export const folders = {
   distRenderer: "dist-renderer",
   distMain: "dist-main",
 };
-
 export const menu = {
   labels: {
     app: "App",
-    showApp: "Show",
     quit: "Quit",
     devTools: "Developer tools",
   },

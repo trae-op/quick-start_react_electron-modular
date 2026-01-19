@@ -1,5 +1,12 @@
-import type { TItem } from "../menu/types.js";
-import type { TItem as TItemTray } from "../tray/types.js";
+import { type MenuItem, type MenuItemConstructorOptions } from "electron";
+
+type TCustomName = {
+  name: "app" | "quit";
+};
+
+type TMenuItemConstructorOptions = MenuItemConstructorOptions & TCustomName;
+
+type TMenuItem = TMenuItemConstructorOptions | (MenuItem & TCustomName);
 
 export type TDestroyProcess = {
   error?: any;
@@ -8,12 +15,12 @@ export type TDestroyProcess = {
 };
 
 export type TMenuProvider = {
-  getMenu: () => TItem[];
-  buildMenu: (items?: TItem[]) => void;
+  getMenu: () => TMenuItem[];
+  buildMenu: (items?: TMenuItem[]) => void;
 };
 
 export type TTrayProvider = {
-  getTray: () => TItemTray[];
-  buildTray: (items?: TItemTray[]) => void;
+  getTray: () => TMenuItem[];
+  buildTray: (items?: TMenuItem[]) => void;
   destroyTray: () => void;
 };

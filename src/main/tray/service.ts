@@ -2,13 +2,13 @@ import { Menu, Tray } from "electron";
 import path from "node:path";
 import { icons, menu } from "../config.js";
 import { Injectable } from "@devisfuture/electron-modular";
-import { getAssetsPath, isDev, isPlatform } from "../@shared/utils.js";
-import type { TItem } from "./types.js";
+import { getAssetsPath, isPlatform } from "../@shared/utils.js";
+import type { TMenuItem } from "../types.js";
 
-const trayMenu: TItem[] = [
+const trayMenu: TMenuItem[] = [
   {
-    label: menu.labels.showApp,
-    name: "show",
+    label: menu.labels.app,
+    name: "app",
   },
   {
     label: menu.labels.quit,
@@ -20,11 +20,11 @@ let tray: Tray | undefined = undefined;
 
 @Injectable()
 export class TrayService {
-  trayMenu: TItem[] = trayMenu;
+  trayMenu: TMenuItem[] = trayMenu;
 
   constructor() {}
 
-  buildTray(items?: TItem[]): void {
+  buildTray(items?: TMenuItem[]): void {
     if (tray === undefined) {
       tray = new Tray(
         path.join(

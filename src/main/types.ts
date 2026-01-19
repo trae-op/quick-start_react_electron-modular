@@ -2,6 +2,8 @@ import type {
   Event,
   BrowserWindow,
   WebContentsWillRedirectEventParams,
+  MenuItemConstructorOptions,
+  MenuItem,
 } from "electron";
 
 export type TWindowManager = {
@@ -12,11 +14,19 @@ export type TWindowManager = {
   onClose?: (event: Event, window: BrowserWindow) => void;
   onWillRedirect?: (
     event: Event<WebContentsWillRedirectEventParams>,
-    url: string
+    url: string,
   ) => void;
   onWebContentsWillRedirect?: (
     event: Event<WebContentsWillRedirectEventParams>,
     url: string,
-    window: BrowserWindow
+    window: BrowserWindow,
   ) => void;
 };
+
+type TCustomName = {
+  name: "app" | "quit";
+};
+
+type TMenuItemConstructorOptions = MenuItemConstructorOptions & TCustomName;
+
+export type TMenuItem = TMenuItemConstructorOptions | (MenuItem & TCustomName);

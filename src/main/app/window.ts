@@ -45,7 +45,7 @@ export class AppWindow implements TWindowManager {
   private buildTray(window: BrowserWindow): void {
     this.trayProvider.buildTray(
       this.trayProvider.getTray().map((item) => {
-        if (item.name === "show") {
+        if (item.name === "app") {
           item.click = () => {
             window.show();
             if (app.dock) {
@@ -76,20 +76,6 @@ export class AppWindow implements TWindowManager {
               label: menu.labels.quit,
               click: () => app.quit(),
             },
-          ];
-        }
-
-        if (item.name === "edit") {
-          item.submenu = [
-            { role: "undo" },
-            { role: "redo" },
-            { type: "separator" },
-            { role: "cut" },
-            { role: "copy" },
-            { role: "paste" },
-            { role: "pasteAndMatchStyle" },
-            { role: "delete" },
-            { role: "selectAll" },
           ];
         }
 

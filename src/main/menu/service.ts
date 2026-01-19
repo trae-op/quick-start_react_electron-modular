@@ -2,9 +2,9 @@ import { Menu } from "electron";
 import { menu } from "../config.js";
 import { Injectable } from "@devisfuture/electron-modular";
 import { isPlatform } from "../@shared/utils.js";
-import type { TItem } from "./types.js";
+import type { TMenuItem } from "../types.js";
 
-const defaultMenu: TItem[] = [
+const defaultMenu: TMenuItem[] = [
   {
     label: isPlatform("darwin") ? undefined : menu.labels.app,
     name: "app",
@@ -17,30 +17,15 @@ const defaultMenu: TItem[] = [
       },
     ],
   },
-  {
-    label: "Edit",
-    name: "edit",
-    submenu: [
-      { role: "undo" },
-      { role: "redo" },
-      { type: "separator" },
-      { role: "cut" },
-      { role: "copy" },
-      { role: "paste" },
-      { role: "pasteAndMatchStyle" },
-      { role: "delete" },
-      { role: "selectAll" },
-    ],
-  },
 ];
 
 @Injectable()
 export class MenuService {
-  menu: TItem[] = defaultMenu;
+  menu: TMenuItem[] = defaultMenu;
 
   constructor() {}
 
-  buildMenu(items?: TItem[]): void {
+  buildMenu(items?: TMenuItem[]): void {
     Menu.setApplicationMenu(
       Menu.buildFromTemplate(items !== undefined ? items : defaultMenu),
     );
