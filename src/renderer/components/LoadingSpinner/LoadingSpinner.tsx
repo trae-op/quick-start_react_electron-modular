@@ -1,18 +1,7 @@
 import { memo } from "react";
-import isEqual from "lodash.isequal";
 import Stack from "@mui/material/Stack";
 import CircularProgress from "@mui/material/CircularProgress";
 import { TPropsLoadingSpinner } from "./types";
-
-function arePropsEqual(
-  oldProps: TPropsLoadingSpinner,
-  newProps: TPropsLoadingSpinner
-): boolean {
-  return (
-    isEqual(oldProps.circularProgressProps, newProps.circularProgressProps) &&
-    isEqual(oldProps.containerProps, newProps.containerProps)
-  );
-}
 
 export const LoadingSpinner = memo(
   ({ containerProps, circularProgressProps }: TPropsLoadingSpinner) => {
@@ -35,5 +24,4 @@ export const LoadingSpinner = memo(
       </Stack>
     );
   },
-  arePropsEqual
 );

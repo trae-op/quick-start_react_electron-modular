@@ -1,5 +1,5 @@
 import { useClosePreloadWindow } from "@hooks/closePreloadWindow";
-import { Container as ContainerAppVersion } from "@composites/AppVersion";
+import { AppVersion } from "@components/AppVersion";
 import IconButton from "@mui/material/IconButton";
 import NoEncryptionGmailerrorredIcon from "@mui/icons-material/NoEncryptionGmailerrorred";
 
@@ -12,7 +12,7 @@ const Home = () => {
 
   return (
     <>
-      <ContainerAppVersion sx={{ width: "100%" }} variant="caption" />
+      <AppVersion sx={{ width: "100%" }} variant="caption" />
       <IconButton size="small" onClick={handleKey}>
         <NoEncryptionGmailerrorredIcon fontSize="medium" />
       </IconButton>
