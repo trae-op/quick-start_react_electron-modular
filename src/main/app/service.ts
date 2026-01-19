@@ -1,14 +1,11 @@
 import { app } from "electron";
-import { Inject, Injectable, getWindow } from "@devisfuture/electron-modular";
-import { TRAY_PROVIDER } from "./tokens.js";
-import type { TTrayProvider } from "./types.js";
+import { Injectable, getWindow } from "@devisfuture/electron-modular";
 
 @Injectable()
 export class AppService {
-  constructor(@Inject(TRAY_PROVIDER) private trayProvider: TTrayProvider) {}
+  constructor() {}
 
   destroyTrayAndWindows(): void {
-    this.trayProvider.destroyTray();
     const preloadAppWindow =
       getWindow<TWindows["preloadApp"]>("window:preload-app");
 

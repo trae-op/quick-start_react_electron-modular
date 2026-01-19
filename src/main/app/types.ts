@@ -18,9 +18,3 @@ export type TMenuProvider = {
   getMenu: () => TMenuItem[];
   buildMenu: (items?: TMenuItem[]) => void;
 };
-
-export type TTrayProvider = {
-  getTray: () => TMenuItem[];
-  buildTray: (items?: TMenuItem[]) => void;
-  destroyTray: () => void;
-};

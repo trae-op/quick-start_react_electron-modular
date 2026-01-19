@@ -7,8 +7,8 @@ import {
 import { isDev } from "../@shared/utils.js";
 import { menu } from "../config.js";
 import type { TWindowManager } from "../types.js";
-import { MENU_PROVIDER, TRAY_PROVIDER } from "./tokens.js";
-import type { TMenuProvider, TTrayProvider } from "./types.js";
+import { MENU_PROVIDER } from "./tokens.js";
+import type { TMenuProvider } from "./types.js";
 import { backgroundColor } from "../config.js";
 
 @WindowManager<TWindows["main"]>({
@@ -27,40 +27,16 @@ export class AppWindow implements TWindowManager {
 
   constructor(
     @Inject(MENU_PROVIDER) private readonly menuProvider: TMenuProvider,
-    @Inject(TRAY_PROVIDER) private readonly trayProvider: TTrayProvider,
   ) {
     app.on("before-quit", () => {
       this.isWillClose = true;
 
-      this.trayProvider.destroyTray();
       destroyWindows();
     });
   }
 
   onWebContentsDidFinishLoad(window: BrowserWindow): void {
     this.buildMenu(window);
-    this.buildTray(window);
-  }
-
-  private buildTray(window: BrowserWindow): void {
-    this.trayProvider.buildTray(
-      this.trayProvider.getTray().map((item) => {
-        if (item.name === "app") {
-          item.click = () => {
-            window.show();
-            if (app.dock) {
-              app.dock.show();
-            }
-          };
-        }
-
-        if (item.name === "quit") {
-          item.click = () => app.quit();
-        }
-
-        return item;
-      }),
-    );
   }
 
   private buildMenu(window: BrowserWindow): void {
