@@ -16,7 +16,6 @@ export const windows: TWindows = {
 export const folders = {
   distRenderer: "dist-renderer",
   distMain: "dist-main",
-  download: "app-update",
 };
 
 export const menu = {
