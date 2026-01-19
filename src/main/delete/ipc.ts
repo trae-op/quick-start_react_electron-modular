@@ -5,34 +5,30 @@ import {
   type TParamOnInit,
 } from "@devisfuture/electron-modular";
 import { ipcMainHandle, ipcMainOn } from "../@shared/utils.js";
-import { DeleteService } from "./service.js";
 import { ITEMS_PROVIDER } from "./tokens.js";
 import type { TItemsProvider } from "./types.js";
 
 @IpcHandler()
 export class DeleteIpc {
-  constructor(
-    @Inject(ITEMS_PROVIDER) private itemsProvider: TItemsProvider,
-    private deleteService: DeleteService,
-  ) {}
+  private itemId: string | undefined;
+  constructor(@Inject(ITEMS_PROVIDER) private itemsProvider: TItemsProvider) {}
 
   onInit({ getWindow }: TParamOnInit<TWindows["delete"]>): void {
     const deleteWindow = getWindow("window:delete");
 
     ipcMainOn("deleteWindow", async (_event, payload) => {
-      if (payload !== undefined) {
-        this.deleteService.setTarget(payload);
+      if (payload.id === undefined) {
+        return;
       }
 
-      await deleteWindow.create();
+      await deleteWindow.create({
+        hash: `window:delete/${payload.id}`,
+      });
+      this.itemId = payload.id;
     });
 
     ipcMainOn("closeDeleteWindow", () => {
       this.hideDeleteWindow();
-    });
-
-    ipcMainHandle("deleteTarget:get", async () => {
-      return this.deleteService.getTarget();
     });
 
     ipcMainHandle("items:delete", async (payload) => {
@@ -41,7 +37,6 @@ export class DeleteIpc {
       }
 
       const deletedId = this.itemsProvider.deleteItem(payload.id);
-      this.deleteService.clearTarget();
       this.hideDeleteWindow();
 
       return { id: deletedId };
@@ -49,7 +44,11 @@ export class DeleteIpc {
   }
 
   private hideDeleteWindow(): void {
-    const window = getWindows<TWindows["delete"]>("window:delete");
+    if (this.itemId === undefined) {
+      return;
+    }
+
+    const window = getWindows(`window:delete/${this.itemId}`);
 
     if (window !== undefined) {
       window.hide();

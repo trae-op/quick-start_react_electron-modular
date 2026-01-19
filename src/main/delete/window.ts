@@ -1,3 +1,4 @@
+import type { BrowserWindow } from "electron";
 import { WindowManager } from "@devisfuture/electron-modular";
 import type { TWindowManager } from "../types.js";
 import { backgroundColor } from "../config.js";

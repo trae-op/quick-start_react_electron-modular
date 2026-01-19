@@ -23,9 +23,8 @@ export const App = () => {
         <Routes>
           <Route element={<MainLayout />}>
             <Route path="/window:main" element={<LazyMainWindow />} />
-
             <Route path="/window:add" element={<LazyMasterKeyWindow />} />
-            <Route path="/window:delete" element={<LazyDeleteWindow />} />
+            <Route path="/window:delete/:id" element={<LazyDeleteWindow />} />
           </Route>
         </Routes>
       </Suspense>

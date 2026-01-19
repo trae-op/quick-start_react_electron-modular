@@ -35,21 +35,20 @@ const Main = () => {
         {items.length === 0 ? (
           <p className="todo-empty">No items yet. Add your first one.</p>
         ) : (
-          items.map((item) => (
-            <Item
-              key={item.id}
-              title={item.title}
-              componentDelete={
-                <Button
-                  variant="ghost"
-                  size="small"
-                  onClick={() => handleDelete(item)}
-                >
-                  Delete
-                </Button>
-              }
-            />
-          ))
+          items.map((item) => {
+            const onClick = () => handleDelete(item);
+            return (
+              <Item
+                key={item.id}
+                title={item.title}
+                componentDelete={
+                  <Button variant="ghost" size="small" onClick={onClick}>
+                    Delete
+                  </Button>
+                }
+              />
+            );
+          })
         )}
       </div>
       <div className="button-group">

@@ -3,7 +3,6 @@ import { ItemsModule } from "../items/module.js";
 import { ItemsService } from "../items/service.js";
 
 import { DeleteIpc } from "./ipc.js";
-import { DeleteService } from "./service.js";
 import { DeleteWindow } from "./window.js";
 import type { TItemsProvider } from "./types.js";
 import { ITEMS_PROVIDER } from "./tokens.js";
@@ -13,7 +12,6 @@ import { ITEMS_PROVIDER } from "./tokens.js";
   ipc: [DeleteIpc],
   windows: [DeleteWindow],
   providers: [
-    DeleteService,
     {
       provide: ITEMS_PROVIDER,
       useFactory: (itemsService: ItemsService): TItemsProvider => ({
