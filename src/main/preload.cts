@@ -2,17 +2,18 @@ const electron = require("electron");
 
 electron.contextBridge.exposeInMainWorld("electron", {
   receive: {
-    subscribeMasterKey: (callback) =>
-      ipcOn("masterKey", (payload) => {
+    itemsSubscribe: (callback) =>
+      ipcOn("items", (payload) => {
         callback(payload);
       }),
   },
   send: {
-    masterKeyWindow: () => ipcSend("masterKeyWindow"),
+    addWindow: () => ipcSend("addWindow"),
+    closePreloadWindow: () => ipcSend("closePreloadWindow"),
   },
   invoke: {
     getVersion: () => ipcInvoke("getVersion"),
-    postMasterKey: (payload) => ipcInvoke("postMasterKey", payload),
+    post: (payload) => ipcInvoke("post", payload),
   },
 } satisfies Window["electron"]);
 

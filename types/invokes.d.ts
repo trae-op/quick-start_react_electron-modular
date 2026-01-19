@@ -1,20 +1,18 @@
 type TEventPayloadInvoke = {
   getVersion: string;
-  postMasterKey: undefined;
-  copyMasterKey: { ok: boolean } | undefined;
+  post: { ok: boolean } | undefined;
 };
 
 type TEventSendInvoke = {
   getVersion: string;
-  postMasterKey: {
-    key: string;
+  post: {
+    title: string;
   };
-  copyMasterKey: TIdResource;
 };
 
 type TInvoke = {
   getVersion: () => Promise<TEventSendInvoke["getVersion"]>;
-  postMasterKey: (
-    payload: TEventSendInvoke["postMasterKey"],
-  ) => Promise<TEventPayloadInvoke["postMasterKey"]>;
+  post: (
+    payload: TEventSendInvoke["post"],
+  ) => Promise<TEventPayloadInvoke["post"]>;
 };

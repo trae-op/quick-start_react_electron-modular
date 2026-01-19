@@ -5,10 +5,12 @@ import { isDev } from "./@shared/utils.js";
 const envPath = path.join(process.resourcesPath, ".env");
 dotenv.config(!isDev() ? { path: envPath } : undefined);
 
+export const backgroundColor = "#242424";
+
 export const windows: TWindows = {
   main: "window:main",
   preloadApp: "window:preload-app",
-  masterKey: "window:master-key",
+  add: "window:add",
 };
 
 export const folders = {
@@ -22,7 +24,6 @@ export const menu = {
     app: "App",
     showApp: "Show",
     quit: "Quit",
-    resources: "Resources",
     devTools: "Developer tools",
   },
 };

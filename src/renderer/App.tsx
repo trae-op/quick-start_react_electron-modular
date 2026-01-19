@@ -5,7 +5,7 @@ import { MainLayout } from "@layouts/Main";
 import { LoadingSpinner } from "@components/LoadingSpinner";
 
 const LazyMainWindow = lazy(() => import("./windows/Main"));
-const LazyMasterKeyWindow = lazy(() => import("./windows/MasterKey"));
+const LazyMasterKeyWindow = lazy(() => import("./windows/Add"));
 
 export const App = () => {
   return (

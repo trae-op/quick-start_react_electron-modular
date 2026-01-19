@@ -5,19 +5,16 @@ import { AppVersion } from "@components/AppVersion";
 const Main = () => {
   useClosePreloadWindow("window:main");
 
-  const handleKey = () => {
-    window.electron.send.masterKeyWindow();
+  const handleAdd = () => {
+    window.electron.send.addWindow();
   };
 
   return (
     <div className="center">
       <AppVersion />
       <div className="button-group">
-        <Button type="submit" size="large" onClick={handleKey}>
-          Open
-        </Button>
-        <Button type="submit" size="large" onClick={handleKey}>
-          Open
+        <Button type="submit" size="large" onClick={handleAdd}>
+          Add
         </Button>
       </div>
     </div>

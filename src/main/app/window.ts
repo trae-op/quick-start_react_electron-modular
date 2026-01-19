@@ -9,6 +9,7 @@ import { menu } from "../config.js";
 import type { TWindowManager } from "../types.js";
 import { MENU_PROVIDER, TRAY_PROVIDER } from "./tokens.js";
 import type { TMenuProvider, TTrayProvider } from "./types.js";
+import { backgroundColor } from "../config.js";
 
 @WindowManager<TWindows["main"]>({
   hash: "window:main",
@@ -18,7 +19,7 @@ import type { TMenuProvider, TTrayProvider } from "./types.js";
     show: false,
     width: 350,
     height: 500,
-    backgroundColor: "#242424",
+    backgroundColor,
   },
 })
 export class AppWindow implements TWindowManager {

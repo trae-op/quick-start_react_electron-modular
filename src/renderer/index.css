@@ -44,6 +44,16 @@ h1 {
   line-height: 1.1;
 }
 
+h2 {
+  font-size: 2.2em;
+  line-height: 1.1;
+}
+
+h3 {
+  font-size: 1.75em;
+  line-height: 1.1;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     --border-color: rgba(0, 0, 0, 0.08);

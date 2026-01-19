@@ -1,8 +1,9 @@
 import { WindowManager } from "@devisfuture/electron-modular";
 import type { TWindowManager } from "../types.js";
+import { backgroundColor } from "../config.js";
 
-@WindowManager<TWindows["masterKey"]>({
-  hash: "window:master-key",
+@WindowManager<TWindows["add"]>({
+  hash: "window:add",
   isCache: true,
   options: {
     width: 350,
@@ -12,10 +13,10 @@ import type { TWindowManager } from "../types.js";
     minimizable: false,
     maximizable: false,
     title: "",
-    backgroundColor: "#242424",
+    backgroundColor,
   },
 })
-export class MasterKeyWindow implements TWindowManager {
+export class AddWindow implements TWindowManager {
   isSync = false;
   constructor() {}
 

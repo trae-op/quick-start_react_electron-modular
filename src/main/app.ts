@@ -4,7 +4,7 @@ import path from "node:path";
 import { initSettings, bootstrapModules } from "@devisfuture/electron-modular";
 import { isDev } from "./@shared/utils.js";
 import { AppModule } from "./app/module.js";
-import { MasterKeyModule } from "./master-key/module.js";
+import { AddModule } from "./add/module.js";
 import { AppPreloadModule } from "./app-preload/module.js";
 import { AppVersionModule } from "./app-version/module.js";
 import { folders } from "./config.js";
@@ -30,6 +30,6 @@ app.on("ready", async () => {
     AppModule,
     AppPreloadModule,
     AppVersionModule,
-    MasterKeyModule,
+    AddModule,
   ]);
 });

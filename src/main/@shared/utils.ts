@@ -3,7 +3,9 @@ import {
   type WebFrameMain,
   type WebContents,
   type IpcMainEvent,
+  app,
 } from "electron";
+import path from "node:path";
 import { windows } from "../config.js";
 
 export function isDev(): boolean {
@@ -14,11 +16,15 @@ export function isPlatform(platform: NodeJS.Platform): boolean {
   return process.platform === platform;
 }
 
+export function getAssetsPath() {
+  return path.join(app.getAppPath(), isDev() ? "." : "..", "src/assets");
+}
+
 export function ipcMainHandle<Key extends keyof TEventSendInvoke>(
   key: Key,
   handle: (
-    payload?: TEventSendInvoke[Key]
-  ) => TEventPayloadInvoke[Key] | Promise<TEventPayloadInvoke[Key]>
+    payload?: TEventSendInvoke[Key],
+  ) => TEventPayloadInvoke[Key] | Promise<TEventPayloadInvoke[Key]>,
 ) {
   ipcMain.handle(key, async (event, payload?: TEventSendInvoke[Key]) => {
     validateEventFrame(event.senderFrame);
@@ -30,14 +36,14 @@ export function ipcMainHandle<Key extends keyof TEventSendInvoke>(
 export function ipcWebContentsSend<Key extends keyof TEventPayloadReceive>(
   key: Key,
   webContentsSend: WebContents,
-  payload: TEventPayloadReceive[Key]
+  payload: TEventPayloadReceive[Key],
 ): void {
   webContentsSend.send(key, payload);
 }
 
 export function ipcMainOn<Key extends keyof TEventPayloadSend>(
   key: Key,
-  callback: (event: IpcMainEvent, payload: TEventPayloadSend[Key]) => void
+  callback: (event: IpcMainEvent, payload: TEventPayloadSend[Key]) => void,
 ): void {
   ipcMain.on(key, (event: IpcMainEvent, data: TEventPayloadSend[Key]) => {
     callback(event, data);
@@ -46,7 +52,7 @@ export function ipcMainOn<Key extends keyof TEventPayloadSend>(
 
 function containsAnyIdentifier(
   fullUrl: string,
-  identifiers: string[]
+  identifiers: string[],
 ): boolean {
   return identifiers.some((identifier) => fullUrl.includes(identifier));
 }

@@ -1,11 +1,9 @@
 type TEventPayloadSend = {
-  // closePreloadWindow: undefined;
-  // openLatestVersion: TCallbackOpenLatestVersion;
-  masterKeyWindow: undefined;
+  addWindow: undefined;
+  closePreloadWindow: undefined;
 };
 
 type TSend = {
-  // closePreloadWindow: () => void;
-  // openLatestVersion: (payload: TEventPayloadSend["openLatestVersion"]) => void;
-  masterKeyWindow: () => void;
+  addWindow: () => void;
+  closePreloadWindow: () => void;
 };
