@@ -3,6 +3,7 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 
 import { MainLayout } from "@layouts/Main";
 import { LoadingSpinner } from "@components/LoadingSpinner";
+
 const LazyHomeWindow = lazy(() => import("./windows/Home"));
 const LazyMasterKeyWindow = lazy(() => import("./windows/MasterKey"));
 
