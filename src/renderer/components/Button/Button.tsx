@@ -1,15 +1,17 @@
 import { memo } from "react";
 import type { TButtonProps, TButtonSize, TButtonVariant } from "./types";
 
-const variantClasses: Record<TButtonVariant, string> = {
-  ghost: "ui-btn--ghost",
-  primary: "ui-btn--primary",
-};
-
-const sizeClasses: Record<TButtonSize, string> = {
-  large: "ui-btn--lg",
-  medium: "",
-  small: "ui-btn--sm",
+const buttonClassMap: Record<TButtonVariant, Record<TButtonSize, string>> = {
+  primary: {
+    large: "button-primary-large",
+    medium: "button-primary-medium",
+    small: "button-primary-small",
+  },
+  ghost: {
+    large: "button-ghost-large",
+    medium: "button-ghost-medium",
+    small: "button-ghost-small",
+  },
 };
 
 export const Button = memo((props: TButtonProps) => {
@@ -24,12 +26,7 @@ export const Button = memo((props: TButtonProps) => {
     ...rest
   } = props;
 
-  const combinedClassName = [
-    "ui-btn",
-    variantClasses[variant],
-    sizeClasses[size],
-    className,
-  ]
+  const combinedClassName = [buttonClassMap[variant][size], className]
     .filter(Boolean)
     .join(" ");
 
@@ -43,7 +40,7 @@ export const Button = memo((props: TButtonProps) => {
       aria-busy={loading}
       type={type ?? "button"}
     >
-      {loading && <span aria-hidden="true" className="ui-loader" />}
+      {loading && <span aria-hidden="true" className="spinner-md" />}
       <span>{children}</span>
     </button>
   );

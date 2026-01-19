@@ -11,23 +11,27 @@ export const Textarea = memo((props: TTextareaProps) => {
     ...textareaProps
   } = props;
 
-  const textareaClassName = ["ui-textarea", className]
+  const textareaClassName = ["textarea-field", className]
     .filter(Boolean)
     .join(" ");
   const containerClassNameFull = [
-    "textarea",
+    "field-container",
     containerClassName,
-    error ? "textarea--error" : "",
+    error ? "field-error" : "",
   ]
     .filter(Boolean)
     .join(" ");
 
   return (
     <label className={containerClassNameFull}>
-      {label && <span className="textarea__label">{label}</span>}
+      {label && <span className="field-label">{label}</span>}
       <textarea className={textareaClassName} {...textareaProps} />
       {helperText && (
-        <span className="textarea__helper" data-error={error}>
+        <span
+          className={["field-helper", error ? "field-helper-error" : ""]
+            .filter(Boolean)
+            .join(" ")}
+        >
           {helperText}
         </span>
       )}

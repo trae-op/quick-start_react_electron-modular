@@ -11,21 +11,25 @@ export const TextField = memo((props: TTextFieldProps) => {
     ...inputProps
   } = props;
 
-  const inputClassName = ["ui-input", className].filter(Boolean).join(" ");
+  const inputClassName = ["input-field", className].filter(Boolean).join(" ");
   const fieldClassName = [
-    "text-field",
+    "field-container",
     containerClassName,
-    error ? "text-field--error" : "",
+    error ? "field-error" : "",
   ]
     .filter(Boolean)
     .join(" ");
 
   return (
     <label className={fieldClassName}>
-      {label && <span className="text-field__label">{label}</span>}
+      {label && <span className="field-label">{label}</span>}
       <input className={inputClassName} {...inputProps} />
       {helperText && (
-        <span className="text-field__helper" data-error={error}>
+        <span
+          className={["field-helper", error ? "field-helper-error" : ""]
+            .filter(Boolean)
+            .join(" ")}
+        >
           {helperText}
         </span>
       )}

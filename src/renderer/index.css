@@ -11,15 +11,24 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --border-color: rgba(255, 255, 255, 0.12);
+  --bg-muted: rgba(255, 255, 255, 0.02);
+  --accent-color: #646cff;
+  --focus-glow: rgba(100, 108, 255, 0.12);
+  --button-text: rgba(255, 255, 255, 0.87);
+  --error-color: #ff6b6b;
+  --background-color: #242424;
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--accent-color);
   text-decoration: inherit;
 }
+
 a:hover {
-  color: #535bf2;
+  color: var(--accent-color);
 }
 
 body {
@@ -35,69 +44,75 @@ h1 {
   line-height: 1.1;
 }
 
-/* -----------------------------
-   UI Utility Classes (Tailwind-style)
-   - input, textarea, button
-   - grid helpers
-   - loading & skeleton animations
-   ----------------------------- */
-
-:root {
-  --ui-border: rgba(255, 255, 255, 0.12);
-  --ui-bg-muted: rgba(255, 255, 255, 0.02);
-  --ui-primary: #646cff;
-  --ui-focus: rgba(100, 108, 255, 0.12);
-  --ui-btn-bg: #1a1a1a;
-  --ui-btn-text: rgba(255, 255, 255, 0.87);
-}
-
 @media (prefers-color-scheme: light) {
   :root {
-    --ui-border: rgba(0, 0, 0, 0.08);
-    --ui-bg-muted: rgba(0, 0, 0, 0.02);
-    --ui-btn-bg: #f9f9f9;
-    --ui-btn-text: #213547;
+    --border-color: rgba(0, 0, 0, 0.08);
+    --bg-muted: rgba(0, 0, 0, 0.02);
+    --button-text: #213547;
+    --accent-color: #4f5bff;
+    background-color: #f9f9f9;
+    color: #213547;
   }
 }
 
-/* Input text field */
-.ui-input {
+:is(.input-field, .input-field-small, .input-field-large) {
   display: block;
   width: 100%;
-  padding: 0.5rem 0.75rem;
-  border-radius: 8px;
-  border: 1px solid var(--ui-border);
-  background-color: var(--ui-bg-muted);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-muted);
   color: inherit;
   font: inherit;
   transition:
     box-shadow 0.15s ease,
     border-color 0.15s ease;
 }
-.ui-input:focus {
-  outline: none;
-  border-color: var(--ui-primary);
-  box-shadow: 0 0 0 4px var(--ui-focus);
+
+.main-layout {
+  height: 100vh;
+  width: 100vw;
 }
-.ui-input-sm {
+
+.container-full-fixed {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
+.container-bg-filled {
+  background-color: var(--background-color);
+}
+
+.input-field {
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+}
+
+.input-field-small {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   border-radius: 6px;
 }
-.ui-input-lg {
+
+.input-field-large {
   padding: 0.75rem 1rem;
   font-size: 1.0625rem;
   border-radius: 10px;
 }
 
-/* Textarea */
-.ui-textarea {
+:is(.input-field, .input-field-small, .input-field-large):focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 4px var(--focus-glow);
+}
+
+:is(.textarea-field, .textarea-field-small, .textarea-field-large) {
   width: 100%;
   min-height: 6rem;
-  padding: 0.5rem 0.75rem;
-  border-radius: 8px;
-  border: 1px solid var(--ui-border);
-  background-color: var(--ui-bg-muted);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-muted);
   color: inherit;
   font: inherit;
   line-height: 1.4;
@@ -106,23 +121,98 @@ h1 {
     box-shadow 0.15s ease,
     border-color 0.15s ease;
 }
-.ui-textarea:focus {
-  outline: none;
-  border-color: var(--ui-primary);
-  box-shadow: 0 0 0 4px var(--ui-focus);
+
+.textarea-field {
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
 }
 
-/* Button */
-.ui-btn {
+.textarea-field-small {
+  padding: 0.35rem 0.6rem;
+  min-height: 4.5rem;
+  border-radius: 6px;
+}
+
+.textarea-field-large {
+  padding: 0.75rem 1rem;
+  min-height: 8rem;
+  border-radius: 10px;
+}
+
+:is(.textarea-field, .textarea-field-small, .textarea-field-large):focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 4px var(--focus-glow);
+}
+
+.grid-stack {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+/* Field container, labels and helper text (independent classes) */
+.field-container {
+  display: block;
+  width: 100%;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 0.375rem;
+  font-weight: 500;
+}
+
+.field-helper {
+  display: block;
+  margin-top: 0.375rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+}
+
+.field-helper-error {
+  color: var(--error-color);
+}
+
+.field-error .input-field,
+.field-error .textarea-field {
+  border-color: var(--error-color);
+}
+
+.field-error .field-label {
+  color: var(--error-color);
+}
+
+.grid-columns-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-columns-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-gap-sm {
+  gap: 0.5rem;
+}
+
+.grid-center {
+  align-items: center;
+  justify-items: center;
+}
+
+:is(
+  .button-primary-small,
+  .button-primary-medium,
+  .button-primary-large,
+  .button-ghost-small,
+  .button-ghost-medium,
+  .button-ghost-large
+) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
   border: 1px solid transparent;
-  background-color: var(--ui-btn-bg);
-  color: var(--ui-btn-text);
   cursor: pointer;
   font: inherit;
   transition:
@@ -130,103 +220,137 @@ h1 {
     border-color 0.15s ease,
     background-color 0.15s ease;
 }
-.ui-btn:hover {
-  transform: translateY(-1px);
-  border-color: var(--ui-primary);
+
+.button-primary-small,
+.button-primary-medium,
+.button-primary-large {
+  background-color: var(--accent-color);
+  color: #ffffff;
 }
-.ui-btn:active {
+
+.button-ghost-small,
+.button-ghost-medium,
+.button-ghost-large {
+  background-color: transparent;
+  color: var(--button-text);
+  border-color: var(--border-color);
+}
+
+.button-primary-small,
+.button-ghost-small {
+  padding: 0.45rem 0.85rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.button-primary-medium,
+.button-ghost-medium {
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.button-primary-large,
+.button-ghost-large {
+  padding: 0.8rem 1.4rem;
+  border-radius: 10px;
+  font-size: 1.0625rem;
+}
+
+:is(
+  .button-primary-small,
+  .button-primary-medium,
+  .button-primary-large,
+  .button-ghost-small,
+  .button-ghost-medium,
+  .button-ghost-large
+):hover {
+  transform: translateY(-1px);
+  border-color: var(--accent-color);
+}
+
+:is(
+  .button-primary-small,
+  .button-primary-medium,
+  .button-primary-large,
+  .button-ghost-small,
+  .button-ghost-medium,
+  .button-ghost-large
+):active {
   transform: translateY(0);
 }
-.ui-btn--primary {
-  background-color: var(--ui-primary);
-  color: #ffffff;
-  border-color: transparent;
-}
-.ui-btn--ghost {
-  background-color: transparent;
-  border-color: var(--ui-border);
-}
-.ui-btn:disabled {
+
+:is(
+  .button-primary-small,
+  .button-primary-medium,
+  .button-primary-large,
+  .button-ghost-small,
+  .button-ghost-medium,
+  .button-ghost-large
+):disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
 }
 
-/* Grid utilities (simple Tailwind-like helpers) */
-.ui-grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(1, minmax(0, 1fr));
-}
-.ui-grid--cols-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-.ui-grid--cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-.ui-grid--gap-sm {
-  gap: 0.5rem;
-}
-.ui-grid--center {
-  align-items: center;
-  justify-items: center;
-}
-
-/* Loading & skeleton animations */
-@keyframes ui-spin {
+@keyframes spinner-spin {
   to {
     transform: rotate(360deg);
   }
 }
-.ui-loader {
-  width: 1rem;
-  height: 1rem;
+
+:is(.spinner-xs, .spinner-sm, .spinner-md, .spinner-lg, .spinner-xl) {
   border-radius: 9999px;
-  border: 3px solid var(--ui-border);
-  border-top-color: var(--ui-primary);
-  animation: ui-spin 1s linear infinite;
+  border-style: solid;
+  border-color: var(--border-color);
+  border-top-color: var(--accent-color);
+  animation: spinner-spin 1s linear infinite;
   display: inline-block;
 }
 
-/* size modifiers */
-.ui-loader--xs {
+.spinner-xs {
   width: 0.5rem;
   height: 0.5rem;
   border-width: 2px;
 }
-.ui-loader--sm {
+
+.spinner-sm {
   width: 0.75rem;
   height: 0.75rem;
   border-width: 2px;
 }
-.ui-loader--md {
+
+.spinner-md {
   width: 1rem;
   height: 1rem;
   border-width: 3px;
-} /* default */
-.ui-loader--lg {
-  width: 1.5rem;
-  height: 1.5rem;
+}
+
+.spinner-lg {
+  width: 1.25rem;
+  height: 1.25rem;
   border-width: 3px;
 }
-.ui-loader--xl {
+
+.spinner-xl {
   width: 2rem;
   height: 2rem;
   border-width: 4px;
 }
 
-/* helpers for LoadingSpinner container */
-.loading-spinner {
+.spinner-block {
   display: block;
   line-height: 0;
 }
-.loading-spinner--inline {
+
+.spinner-inline {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  line-height: 0;
 }
 
-.ui-skeleton {
+.skeleton-block {
   display: inline-block;
   width: 100%;
   height: 100%;
@@ -238,9 +362,10 @@ h1 {
   );
   background-size: 200% 100%;
   border-radius: 6px;
-  animation: ui-pulse 1.5s linear infinite;
+  animation: skeleton-pulse 1.5s linear infinite;
 }
-@keyframes ui-pulse {
+
+@keyframes skeleton-pulse {
   0% {
     background-position: 200% 0;
   }
@@ -249,12 +374,11 @@ h1 {
   }
 }
 
-/* Usage examples (for reference):
-
-<input class="ui-input" />
-<textarea class="ui-textarea ui-textarea--lg"></textarea>
-<button class="ui-btn ui-btn--primary">Primary</button>
-<div class="ui-grid ui-grid--cols-3 ui-grid--gap-sm">...</div>
-<span class="ui-loader" aria-hidden="true"></span>
-<div class="ui-skeleton" style="height:16px;width:120px"></div>
+/* Usage examples:
+<input class="input-field" />
+<textarea class="textarea-field textarea-field-large"></textarea>
+<button class="button-primary-medium">Primary</button>
+<div class="grid-stack grid-columns-3 grid-gap-sm">...</div>
+<span class="spinner-md" aria-hidden="true"></span>
+<div class="skeleton-block" style="height:16px;width:120px"></div>
 */

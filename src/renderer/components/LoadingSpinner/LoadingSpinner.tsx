@@ -5,19 +5,14 @@ export const LoadingSpinner = memo((props: TLoadingSpinnerProps) => {
   const { className = "", inline = false, size = "md", ...other } = props;
 
   const containerClassName = [
-    "loading-spinner",
-    inline ? "loading-spinner--inline" : "",
+    inline ? "spinner-inline" : "spinner-block",
     className,
   ]
     .filter(Boolean)
     .join(" ");
 
-  const loaderClassName = [
-    "ui-loader",
-    typeof size === "string" ? `ui-loader--${size}` : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
+  const loaderClassName =
+    typeof size === "string" ? `spinner-${size}` : "spinner-md";
 
   const loaderStyle =
     typeof size === "number"
