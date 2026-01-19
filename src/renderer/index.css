@@ -1,68 +1,185 @@
+/* -----------------------------
+   UI Utility Classes (Tailwind-style)
+   - input, textarea, button
+   - grid helpers
+   - loading & skeleton animations
+   ----------------------------- */
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  --ui-border: rgba(255, 255, 255, 0.12);
+  --ui-bg-muted: rgba(255, 255, 255, 0.02);
+  --ui-primary: #646cff;
+  --ui-focus: rgba(100, 108, 255, 0.12);
+  --ui-btn-bg: #1a1a1a;
+  --ui-btn-text: rgba(255, 255, 255, 0.87);
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+    --ui-border: rgba(0, 0, 0, 0.08);
+    --ui-bg-muted: rgba(0, 0, 0, 0.02);
+    --ui-btn-bg: #f9f9f9;
+    --ui-btn-text: #213547;
   }
 }
+
+/* Input text field */
+.ui-input {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--ui-border);
+  background-color: var(--ui-bg-muted);
+  color: inherit;
+  font: inherit;
+  transition:
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+.ui-input:focus {
+  outline: none;
+  border-color: var(--ui-primary);
+  box-shadow: 0 0 0 4px var(--ui-focus);
+}
+.ui-input-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  border-radius: 6px;
+}
+.ui-input-lg {
+  padding: 0.75rem 1rem;
+  font-size: 1.0625rem;
+  border-radius: 10px;
+}
+
+/* Textarea */
+.ui-textarea {
+  width: 100%;
+  min-height: 6rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--ui-border);
+  background-color: var(--ui-bg-muted);
+  color: inherit;
+  font: inherit;
+  line-height: 1.4;
+  resize: vertical;
+  transition:
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+.ui-textarea:focus {
+  outline: none;
+  border-color: var(--ui-primary);
+  box-shadow: 0 0 0 4px var(--ui-focus);
+}
+
+/* Button */
+.ui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background-color: var(--ui-btn-bg);
+  color: var(--ui-btn-text);
+  cursor: pointer;
+  font: inherit;
+  transition:
+    transform 0.06s ease,
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+.ui-btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--ui-primary);
+}
+.ui-btn:active {
+  transform: translateY(0);
+}
+.ui-btn--primary {
+  background-color: var(--ui-primary);
+  color: #ffffff;
+  border-color: transparent;
+}
+.ui-btn--ghost {
+  background-color: transparent;
+  border-color: var(--ui-border);
+}
+.ui-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Grid utilities (simple Tailwind-like helpers) */
+.ui-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+.ui-grid--cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.ui-grid--cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.ui-grid--gap-sm {
+  gap: 0.5rem;
+}
+.ui-grid--center {
+  align-items: center;
+  justify-items: center;
+}
+
+/* Loading & skeleton animations */
+@keyframes ui-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.ui-loader {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 9999px;
+  border: 3px solid var(--ui-border);
+  border-top-color: var(--ui-primary);
+  animation: ui-spin 1s linear infinite;
+  display: inline-block;
+}
+
+.ui-skeleton {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0.04) 75%
+  );
+  background-size: 200% 100%;
+  border-radius: 6px;
+  animation: ui-pulse 1.5s linear infinite;
+}
+@keyframes ui-pulse {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Usage examples (for reference):
+
+<input class="ui-input" />
+<textarea class="ui-textarea ui-textarea--lg"></textarea>
+<button class="ui-btn ui-btn--primary">Primary</button>
+<div class="ui-grid ui-grid--cols-3 ui-grid--gap-sm">...</div>
+<span class="ui-loader" aria-hidden="true"></span>
+<div class="ui-skeleton" style="height:16px;width:120px"></div>
+*/
