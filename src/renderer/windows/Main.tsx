@@ -6,7 +6,7 @@ const Main = () => {
   useClosePreloadWindow("window:main");
 
   const handleKey = () => {
-    window.electron.send.windowMasterKey();
+    window.electron.send.masterKeyWindow();
   };
 
   return (

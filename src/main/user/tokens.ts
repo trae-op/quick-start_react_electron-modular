@@ -1,1 +1,0 @@
-export const USER_REST_API_PROVIDER = Symbol("USER_REST_API_PROVIDER");

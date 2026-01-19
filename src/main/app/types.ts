@@ -1,4 +1,3 @@
-import type { BrowserWindow } from "electron";
 import type { TItem } from "../menu/types.js";
 import type { TItem as TItemTray } from "../tray/types.js";
 
@@ -17,18 +16,4 @@ export type TTrayProvider = {
   getTray: () => TItemTray[];
   buildTray: (items?: TItemTray[]) => void;
   destroyTray: () => void;
-};
-
-export type TAuthProvider = {
-  checkAuthenticated: (
-    window: BrowserWindow,
-  ) => { isAuthenticated: boolean } | undefined;
-  setCheckAccessInterval: (window: BrowserWindow) => void;
-  logout: (window: BrowserWindow) => void;
-};
-
-export type TUpdaterProvider = {
-  setFeedUrl: () => void;
-  checkForUpdates: () => void;
-  controlUpdateWindowsPlatform: () => void;
 };

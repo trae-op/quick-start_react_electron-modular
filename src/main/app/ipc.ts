@@ -1,61 +1,14 @@
-import { app, dialog } from "electron";
 import {
-  Inject,
   TParamOnInit,
   TIpcHandlerInterface,
   IpcHandler,
   getWindow as getWindows,
 } from "@devisfuture/electron-modular";
-import { ipcMainOn } from "../$shared/utils.js";
-import { AppService } from "./service.js";
-import { messages } from "../config.js";
-import { AUTH_PROVIDER } from "./tokens.js";
-import type { TAuthProvider, TDestroyProcess } from "./types.js";
+import { ipcMainOn } from "../@shared/utils.js";
 
 @IpcHandler()
 export class AppIpc implements TIpcHandlerInterface {
-  constructor(
-    private appService: AppService,
-    @Inject(AUTH_PROVIDER) private authProvider: TAuthProvider,
-  ) {
-    process.on("uncaughtException", (error) => {
-      this.destroyProcess({
-        error,
-        message: error.message,
-        title: messages.crash.uncaughtException,
-      });
-    });
-
-    process.on("unhandledRejection", (reason) => {
-      this.destroyProcess({
-        error: reason,
-        message: messages.crash.unhandledRejection,
-        title: messages.crash.unhandledRejection,
-      });
-    });
-
-    app.on("render-process-gone", (_event, _webContents, details) => {
-      this.destroyProcess({
-        error: details,
-        message: `Exit Code: ${details.exitCode}, Reason: ${details.reason}`,
-        title: messages.crash.renderProcessGone,
-      });
-    });
-  }
-
-  private destroyProcess({ error, message, title }: TDestroyProcess) {
-    if (error !== undefined) {
-      console.error(error);
-    }
-
-    this.appService.destroyTrayAndWindows();
-    this.appService.dockHide();
-
-    dialog.showMessageBox({
-      title,
-      message,
-    });
-  }
+  constructor() {}
 
   async onInit({ getWindow }: TParamOnInit<TWindows["main"]>) {
     const mainWindow = getWindow("window:main");
@@ -70,12 +23,6 @@ export class AppIpc implements TIpcHandlerInterface {
 
       if (window !== undefined) {
         window.show();
-      }
-    });
-
-    ipcMainOn("logout", async () => {
-      if (window !== undefined) {
-        this.authProvider.logout(window);
       }
     });
   }

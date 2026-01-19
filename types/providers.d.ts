@@ -1,1 +1,0 @@
-type TProviders = "google" | "facebook";

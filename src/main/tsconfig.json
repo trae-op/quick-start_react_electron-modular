@@ -6,18 +6,7 @@
     "strict": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "outDir": "../../dist-main",
-    "types": [
-      "../../types/receives",
-      "../../types/sends",
-      "../../types/invokes",
-      "../../types/collected",
-      "../../types/windows",
-      "../../types/files",
-      "../../types/providers",
-      "../../types/user",
-      "../../types/resource",
-      "../../types/sync"
-    ]
-  }
+    "outDir": "../../dist-main"
+  },
+  "include": [".", "../../types/*.d.ts"]
 }

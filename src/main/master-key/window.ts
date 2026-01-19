@@ -1,7 +1,4 @@
-import { BrowserWindow } from "electron";
 import { WindowManager } from "@devisfuture/electron-modular";
-import { ipcWebContentsSend } from "../$shared/utils.js";
-import { getStore } from "../$shared/store.js";
 import type { TWindowManager } from "../types.js";
 
 @WindowManager<TWindows["masterKey"]>({
@@ -22,18 +19,5 @@ export class MasterKeyWindow implements TWindowManager {
   isSync = false;
   constructor() {}
 
-  onWebContentsDidFinishLoad(window: BrowserWindow): void {
-    window.webContents.toggleDevTools();
-    this.isSync = true;
-  }
-
-  onShow(window: BrowserWindow): void {
-    if (this.isSync) {
-      const masterKey = getStore("masterKey");
-
-      ipcWebContentsSend("masterKey", window.webContents, {
-        isMasterKey: Boolean(masterKey),
-      });
-    }
-  }
+  onWebContentsDidFinishLoad(): void {}
 }

@@ -4,22 +4,11 @@ import {
   WindowManager,
   destroyWindows,
 } from "@devisfuture/electron-modular";
-import { getElectronStorage } from "../$shared/store.js";
-import { ipcMainOn, ipcWebContentsSend, isDev } from "../$shared/utils.js";
+import { isDev } from "../@shared/utils.js";
 import { menu } from "../config.js";
 import type { TWindowManager } from "../types.js";
-import {
-  AUTH_PROVIDER,
-  MENU_PROVIDER,
-  TRAY_PROVIDER,
-  UPDATER_PROVIDER,
-} from "./tokens.js";
-import type {
-  TAuthProvider,
-  TMenuProvider,
-  TTrayProvider,
-  TUpdaterProvider,
-} from "./types.js";
+import { MENU_PROVIDER, TRAY_PROVIDER } from "./tokens.js";
+import type { TMenuProvider, TTrayProvider } from "./types.js";
 
 @WindowManager<TWindows["main"]>({
   hash: "window:main",
@@ -38,13 +27,7 @@ export class AppWindow implements TWindowManager {
   constructor(
     @Inject(MENU_PROVIDER) private readonly menuProvider: TMenuProvider,
     @Inject(TRAY_PROVIDER) private readonly trayProvider: TTrayProvider,
-    @Inject(AUTH_PROVIDER) private readonly authProvider: TAuthProvider,
-    @Inject(UPDATER_PROVIDER)
-    private readonly updaterProvider: TUpdaterProvider,
   ) {
-    this.updaterProvider.setFeedUrl();
-    this.updaterProvider.controlUpdateWindowsPlatform();
-
     app.on("before-quit", () => {
       this.isWillClose = true;
 
@@ -56,34 +39,6 @@ export class AppWindow implements TWindowManager {
   onWebContentsDidFinishLoad(window: BrowserWindow): void {
     this.buildMenu(window);
     this.buildTray(window);
-    this.checkAuthenticated(window);
-    this.ipcCheckSync(window);
-    this.authProvider.setCheckAccessInterval(window);
-
-    const userId = getElectronStorage("userId");
-    const authToken = getElectronStorage("authToken");
-
-    if (userId && authToken) {
-      this.updaterProvider.checkForUpdates();
-    }
-  }
-
-  private ipcCheckSync(window: BrowserWindow): void {
-    ipcMainOn("sync", (event) => {
-      const result = this.authProvider.checkAuthenticated(window);
-
-      event.reply("sync", {
-        isAuthenticated: result !== undefined && result.isAuthenticated,
-      });
-    });
-  }
-
-  private async checkAuthenticated(window: BrowserWindow) {
-    const result = this.authProvider.checkAuthenticated(window);
-    ipcWebContentsSend("authSocialNetwork", window.webContents, {
-      isAuthenticated:
-        result !== undefined && result.isAuthenticated !== undefined,
-    });
   }
 
   private buildTray(window: BrowserWindow): void {
