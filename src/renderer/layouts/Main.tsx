@@ -4,9 +4,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 
-import { Container as ContainerAllowedRouters } from "@composites/AllowedRoutes";
 import { useClosePreloadWindow } from "@hooks/closePreloadWindow";
-import { AuthLoadingSpinner } from "@composites/AuthLoadingSpinner";
 
 const theme = createTheme({
   components: {
@@ -40,10 +38,6 @@ export const MainLayout = () => {
           alignItems="center"
           height="100vh"
         >
-          <ContainerAllowedRouters routes={["window:main", "sign-in"]}>
-            <AuthLoadingSpinner />
-          </ContainerAllowedRouters>
-
           <Outlet />
         </Box>
       </Container>
