@@ -12,7 +12,7 @@ const Main = () => {
   return (
     <div className="center">
       <AppVersion />
-      <div>
+      <div className="button-group">
         <Button type="submit" size="large" onClick={handleKey}>
           Open
         </Button>

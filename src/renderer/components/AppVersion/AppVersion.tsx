@@ -13,5 +13,5 @@ export const AppVersion = () => {
     return null;
   }
 
-  return <span>v{version}</span>;
+  return <h1>v{version}</h1>;
 };

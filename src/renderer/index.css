@@ -200,6 +200,7 @@ h1 {
   justify-items: center;
 }
 
+/* Flex centering utility */
 .center {
   display: flex;
   align-items: center;
@@ -208,6 +209,37 @@ h1 {
   flex-direction: column;
   height: 100vh;
   width: 100vw;
+}
+
+/* Button spacing utilities 🔧 */
+:root {
+  --button-gap: 0.5rem;
+}
+
+.button-group {
+  display: inline-flex;
+  gap: var(--button-gap);
+  align-items: center;
+}
+
+/* When buttons are adjacent but not inside a .button-group */
+:is(
+    .button-primary-small,
+    .button-primary-medium,
+    .button-primary-large,
+    .button-ghost-small,
+    .button-ghost-medium,
+    .button-ghost-large
+  )
+  + :is(
+    .button-primary-small,
+    .button-primary-medium,
+    .button-primary-large,
+    .button-ghost-small,
+    .button-ghost-medium,
+    .button-ghost-large
+  ) {
+  margin-left: var(--button-gap);
 }
 
 :is(
