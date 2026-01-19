@@ -19,7 +19,7 @@ const SubmitButton = () => {
   const { pending } = useFormStatus();
 
   return (
-    <Button type="submit" size="large" loading={pending} disabled={pending}>
+    <Button type="submit" size="medium" loading={pending} disabled={pending}>
       {pending ? "Sending..." : "Apply"}
     </Button>
   );
@@ -51,17 +51,24 @@ const Add = () => {
   );
 
   return (
-    <form action={formAction} noValidate autoComplete="off">
-      <h2>Add a new item</h2>
-      <TextField
-        label="Title"
-        name="title"
-        type="text"
-        required
-        helperText="Enter the title"
-      />
-      <SubmitButton />
-    </form>
+    <div className="center">
+      <form
+        className="add-form"
+        action={formAction}
+        noValidate
+        autoComplete="off"
+      >
+        <h2>Add a new item</h2>
+        <TextField
+          label="Title"
+          name="title"
+          type="text"
+          required
+          helperText="Enter the title"
+        />
+        <SubmitButton />
+      </form>
+    </div>
   );
 };
 

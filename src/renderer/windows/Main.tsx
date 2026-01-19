@@ -53,7 +53,7 @@ const Main = () => {
         )}
       </div>
       <div className="button-group">
-        <Button type="submit" size="large" onClick={handleAdd}>
+        <Button type="submit" size="medium" onClick={handleAdd}>
           Add
         </Button>
       </div>
