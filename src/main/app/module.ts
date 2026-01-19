@@ -6,8 +6,11 @@ import { AppWindow } from "./window.js";
 import { MenuService } from "../menu/service.js";
 import { MENU_PROVIDER, TRAY_PROVIDER } from "./tokens.js";
 import type { TMenuProvider, TTrayProvider } from "./types.js";
+import { MenuModule } from "../menu/module.js";
+import { TrayModule } from "../tray/module.js";
 
 @RgModule({
+  imports: [MenuModule, TrayModule],
   ipc: [AppIpc],
   windows: [AppWindow],
   providers: [
