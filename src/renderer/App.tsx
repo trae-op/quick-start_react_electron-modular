@@ -14,7 +14,7 @@ import { PublicRoute } from "@composites/PublicRoute";
 import { PrivateRoute } from "@composites/PrivateRoute";
 import { LoadingSpinner } from "@components/LoadingSpinner";
 
-const LazyHomeWindow = lazy(() => import("./windows/home/components/Home"));
+const LazyHomeWindow = lazy(() => import("./windows/Home"));
 const LazyUpdateResourceWindow = lazy(
   () => import("./windows/updateResource/UpdateResource"),
 );
