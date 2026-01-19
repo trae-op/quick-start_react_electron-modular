@@ -1,14 +1,16 @@
 import {
+  Inject,
   IpcHandler,
   getWindow as getWindows,
   type TParamOnInit,
 } from "@devisfuture/electron-modular";
 import { ipcMainHandle, ipcMainOn } from "../@shared/utils.js";
-import { ItemsService } from "../items/service.js";
+import type { TItemsProvider } from "./types.js";
+import { ITEMS_PROVIDER } from "./tokens.js";
 
 @IpcHandler()
 export class AddIpc {
-  constructor(private itemsService: ItemsService) {}
+  constructor(@Inject(ITEMS_PROVIDER) private itemsProvider: TItemsProvider) {}
 
   onInit({ getWindow }: TParamOnInit<TWindows["add"]>): void {
     const addWindow = getWindow("window:add");
@@ -28,7 +30,7 @@ export class AddIpc {
         return undefined;
       }
 
-      const item = this.itemsService.addItem(title);
+      const item = this.itemsProvider.addItem(title);
       this.hideAddWindow();
 
       return item;

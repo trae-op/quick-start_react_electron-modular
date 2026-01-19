@@ -1,16 +1,18 @@
 import {
+  Inject,
   IpcHandler,
   getWindow as getWindows,
   type TParamOnInit,
 } from "@devisfuture/electron-modular";
 import { ipcMainHandle, ipcMainOn } from "../@shared/utils.js";
-import { ItemsService } from "../items/service.js";
 import { DeleteService } from "./service.js";
+import { ITEMS_PROVIDER } from "./tokens.js";
+import type { TItemsProvider } from "./types.js";
 
 @IpcHandler()
 export class DeleteIpc {
   constructor(
-    private itemsService: ItemsService,
+    @Inject(ITEMS_PROVIDER) private itemsProvider: TItemsProvider,
     private deleteService: DeleteService,
   ) {}
 
@@ -38,7 +40,7 @@ export class DeleteIpc {
         return undefined;
       }
 
-      const deletedId = this.itemsService.deleteItem(payload.id);
+      const deletedId = this.itemsProvider.deleteItem(payload.id);
       this.deleteService.clearTarget();
       this.hideDeleteWindow();
 
