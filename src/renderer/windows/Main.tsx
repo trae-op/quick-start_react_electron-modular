@@ -10,12 +10,17 @@ const Main = () => {
   };
 
   return (
-    <>
+    <div className="center">
       <AppVersion />
-      <Button type="submit" size="large" onClick={handleKey}>
-        Open
-      </Button>
-    </>
+      <div>
+        <Button type="submit" size="large" onClick={handleKey}>
+          Open
+        </Button>
+        <Button type="submit" size="large" onClick={handleKey}>
+          Open
+        </Button>
+      </div>
+    </div>
   );
 };
 

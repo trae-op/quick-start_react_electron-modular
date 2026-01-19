@@ -200,6 +200,16 @@ h1 {
   justify-items: center;
 }
 
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
 :is(
   .button-primary-small,
   .button-primary-medium,
