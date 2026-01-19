@@ -31,6 +31,13 @@ a:hover {
   color: var(--accent-color);
 }
 
+/* Make width calculations predictable so 100% elements include padding/border */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   display: flex;
@@ -284,13 +291,18 @@ h3 {
   opacity: 0.7;
 }
 
+/* Centered card for Add form */
 .add-form {
-  width: 100%;
-  padding: 0 1.4rem;
-  display: flex;
-  flex-direction: column;
+  width: min(360px, 90vw);
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-muted);
+  display: grid;
   gap: 0.85rem;
   text-align: center;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.14);
+  margin: 0 auto;
 }
 
 .add-form h2 {
@@ -299,6 +311,18 @@ h3 {
 
 .add-form .field-container {
   text-align: left;
+}
+
+.add-form .input-field {
+  width: 100%;
+}
+
+.add-form .button-primary-medium,
+.add-form .button-ghost-medium {
+  width: 100%;
+  padding: 0.55rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
 }
 
 /* When buttons are adjacent but not inside a .button-group */
