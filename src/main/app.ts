@@ -17,8 +17,9 @@ app.disableHardwareAcceleration();
 
 Menu.setApplicationMenu(null);
 
+const source = process.env.BASE_REST_API;
 initSettings({
-  baseRestApi: process.env.BASE_REST_API ?? "",
+  cspConnectSources: source ? [source] : [],
   localhostPort: process.env.LOCALHOST_ELECTRON_SERVER_PORT ?? "",
   folders: {
     distRenderer: folders.distRenderer,
