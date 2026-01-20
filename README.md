@@ -46,14 +46,6 @@ This repository contains a _very simple_ Todo List application built with Electr
   npm run build
   ```
 
-- Run TypeScript transpilation for Electron main code (used by dev script):
-
-  ```bash
-  npm run transpile:electron
-  ```
-
-> ⚠️ Note: Development runs React dev server (Vite) and a transpiled Electron main process simultaneously.
-
 ## 💡 Notes
 
 - This is intentionally minimal — the UI and data persistence are basic on purpose (the goal is to show how `@devisfuture/electron-modular` organizes an app, not to be a feature-complete todo app).
