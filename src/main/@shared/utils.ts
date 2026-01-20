@@ -8,7 +8,3 @@ export function isDev(): boolean {
 export function isPlatform(platform: NodeJS.Platform): boolean {
   return process.platform === platform;
 }
-
-export function getAssetsPath() {
-  return path.join(app.getAppPath(), isDev() ? "." : "..", "src/assets");
-}
