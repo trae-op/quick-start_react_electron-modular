@@ -4,7 +4,6 @@ import {
   getWindow as getWindows,
 } from "@devisfuture/electron-modular";
 import { getElectronStorage, setElectronStorage } from "../@shared/store.js";
-import { ipcWebContentsSend } from "../@shared/utils.js";
 
 @Injectable()
 export class ItemsService {
@@ -40,7 +39,7 @@ export class ItemsService {
     const window = getWindows<TWindows["main"]>("window:main");
 
     if (window !== undefined) {
-      ipcWebContentsSend("items", window.webContents, items);
+      window.webContents.send("items", items);
     }
   }
 }

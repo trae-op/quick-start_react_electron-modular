@@ -1,10 +1,10 @@
+import { ipcMain } from "electron";
 import {
   Inject,
   IpcHandler,
   getWindow as getWindows,
   type TParamOnInit,
 } from "@devisfuture/electron-modular";
-import { ipcMainHandle, ipcMainOn } from "../@shared/utils.js";
 import type { TItemsProvider } from "./types.js";
 import { ITEMS_PROVIDER } from "./tokens.js";
 
@@ -15,7 +15,7 @@ export class AddIpc {
   onInit({ getWindow }: TParamOnInit<TWindows["add"]>): void {
     const addWindow = getWindow("window:add");
 
-    ipcMainOn("addWindow", async () => {
+    ipcMain.on("addWindow", async () => {
       await addWindow.create();
     });
 
@@ -23,18 +23,21 @@ export class AddIpc {
   }
 
   private ipcAddItem(): void {
-    ipcMainHandle("items:add", async (payload) => {
-      const title = payload?.title?.trim();
+    ipcMain.handle(
+      "items:add",
+      (_, payload?: TEventSendInvoke["items:add"]) => {
+        const title = payload?.title?.trim();
 
-      if (!title) {
-        return undefined;
-      }
+        if (!title) {
+          return undefined;
+        }
 
-      const item = this.itemsProvider.addItem(title);
-      this.hideAddWindow();
+        const item = this.itemsProvider.addItem(title);
+        this.hideAddWindow();
 
-      return item;
-    });
+        return item;
+      },
+    );
   }
 
   private hideAddWindow(): void {

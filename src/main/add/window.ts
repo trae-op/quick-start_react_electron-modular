@@ -7,7 +7,7 @@ import { backgroundColor } from "../config.js";
   isCache: true,
   options: {
     width: 350,
-    height: 300,
+    height: 320,
     alwaysOnTop: true,
     autoHideMenuBar: true,
     minimizable: false,
