@@ -2,47 +2,26 @@ const electron = require("electron");
 
 electron.contextBridge.exposeInMainWorld("electron", {
   receive: {
-    itemsSubscribe: (callback) =>
-      ipcOn("items", (payload) => {
+    itemsSubscribe: (callback) => {
+      const cb = (_: Electron.IpcRendererEvent, payload: any) =>
         callback(payload);
-      }),
+
+      electron.ipcRenderer.on("items", cb);
+
+      return () => electron.ipcRenderer.off("items", cb);
+    },
   },
   send: {
-    addWindow: () => ipcSend("addWindow"),
-    deleteWindow: (payload) => ipcSend("deleteWindow", payload),
-    closeDeleteWindow: () => ipcSend("closeDeleteWindow"),
-    closePreloadWindow: () => ipcSend("closePreloadWindow"),
+    addWindow: () => electron.ipcRenderer.send("addWindow"),
+    deleteWindow: (payload) =>
+      electron.ipcRenderer.send("deleteWindow", payload),
+    closeDeleteWindow: () => electron.ipcRenderer.send("closeDeleteWindow"),
+    closePreloadWindow: () => electron.ipcRenderer.send("closePreloadWindow"),
   },
   invoke: {
-    getItems: () => ipcInvoke("items:get"),
-    addItem: (payload) => ipcInvoke("items:add", payload),
-    deleteItem: (payload) => ipcInvoke("items:delete", payload),
+    getItems: () => electron.ipcRenderer.invoke("items:get"),
+    addItem: (payload) => electron.ipcRenderer.invoke("items:add", payload),
+    deleteItem: (payload) =>
+      electron.ipcRenderer.invoke("items:delete", payload),
   },
 } satisfies Window["electron"]);
-
-function ipcInvoke<
-  Key extends keyof TEventPayloadInvoke,
-  S extends keyof TEventSendInvoke,
->(key: Key, payload?: TEventSendInvoke[S]): Promise<TEventPayloadInvoke[Key]> {
-  return electron.ipcRenderer.invoke(key, payload);
-}
-
-function ipcSend<Key extends keyof TEventPayloadSend>(
-  key: Key,
-  payload?: TEventPayloadSend[Key],
-) {
-  electron.ipcRenderer.send(key, payload);
-}
-
-function ipcOn<Key extends keyof TEventPayloadReceive>(
-  key: Key,
-  callback: (payload: TEventPayloadReceive[Key]) => void,
-) {
-  const cb = (
-    _: Electron.IpcRendererEvent,
-    payload: TEventPayloadReceive[Key],
-  ) => callback(payload);
-
-  electron.ipcRenderer.on(key, cb);
-  return () => electron.ipcRenderer.off(key, cb);
-}
